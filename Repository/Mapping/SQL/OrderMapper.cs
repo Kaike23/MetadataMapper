@@ -14,7 +14,7 @@ namespace Repository.Mapping.SQL
 	{
 		public OrderMapper() : base() { }
 
-		protected override MetadataMap LoadMetadataMap()
+		protected override IMetadataMap LoadMetadataMap()
 		{
 			var metadataMap = new MetadataMap(typeof(Order), "Orders");
 			metadataMap.AddColumn("CustomerId", "CustomerId");
@@ -34,8 +34,8 @@ namespace Repository.Mapping.SQL
 		private class FindByDateStatement : IStatementSource
 		{
 			private DateTime _orderDate;
-			private MetadataMap _metadataMap;
-			public FindByDateStatement(DateTime orderDate, MetadataMap metadataMap)
+			private IMetadataMap _metadataMap;
+			public FindByDateStatement(DateTime orderDate, IMetadataMap metadataMap)
 			{
 				_orderDate = orderDate;
 				_metadataMap = metadataMap;
@@ -67,8 +67,8 @@ namespace Repository.Mapping.SQL
 		private class FindByCustomerStatement : IStatementSource
 		{
 			private Guid _customerId;
-			private MetadataMap _metadataMap;
-			public FindByCustomerStatement(Guid customerId, MetadataMap metadataMap)
+			private IMetadataMap _metadataMap;
+			public FindByCustomerStatement(Guid customerId, IMetadataMap metadataMap)
 			{
 				_customerId = customerId;
 				_metadataMap = metadataMap;

@@ -12,7 +12,7 @@ namespace Repository.Mapping.SQL
 	{
 		public CustomerMapper() : base() { }
 
-		protected override MetadataMap LoadMetadataMap()
+		protected override IMetadataMap LoadMetadataMap()
 		{
 			var metadataMap = new MetadataMap(typeof(Customer), "Customers");
 			metadataMap.AddColumn("FirstName", "FirstName");
@@ -34,8 +34,8 @@ namespace Repository.Mapping.SQL
 		{
 			private string _firstName;
 			private string _lastName;
-			private MetadataMap _metadataMap;
-			public FindByNameStatement(string firstName, string lastName, MetadataMap metadataMap)
+			private IMetadataMap _metadataMap;
+			public FindByNameStatement(string firstName, string lastName, IMetadataMap metadataMap)
 			{
 				_firstName = firstName;
 				_lastName = lastName;

@@ -46,7 +46,9 @@
     <Compile Include="Domain\IRepository.cs" />
     <Compile Include="Identity\IdentityMap.cs" />
     <Compile Include="Identity\IIdentityMap.cs" />
+    <Compile Include="Mapping\IColumnMap.cs" />
     <Compile Include="Mapping\IDataMapper.cs" />
+    <Compile Include="Mapping\IMetadataMap.cs" />
     <Compile Include="Mapping\IStatementSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session\ILockManager.cs" />

@@ -7,21 +7,23 @@ using System.Threading.Tasks;
 
 namespace Repository.Metadata
 {
-	public class MetadataMap
+	using Infrastructure.Mapping;
+
+	public class MetadataMap : IMetadataMap
 	{
 		private Type _domainClass;
 		private string _tableName;
-		private List<ColumnMap> _columns;
+		private List<IColumnMap> _columns;
 
 		public Type DomainClass { get { return _domainClass; } }
 		public string TableName { get { return _tableName; } }
-		public List<ColumnMap> Columns { get { return _columns; } }
+		public List<IColumnMap> Columns { get { return _columns; } }
 
 		public MetadataMap(Type domainClass, string tableName)
 		{
 			_domainClass = domainClass;
 			_tableName = tableName;
-			_columns = new List<ColumnMap>();
+			_columns = new List<IColumnMap>();
 			AddColumn("Id", "Id");
 		}
 
@@ -61,6 +63,15 @@ namespace Repository.Metadata
 				result.Append(", @" + _columns[index].ColumnName);
 			}
 			return result.ToString();
+		}
+
+
+		public string GetColumnForField(string field)
+		{
+			var columnMap = Columns.Find(column => column.FieldName.Equals(field));
+			if (columnMap == null)
+				throw new ApplicationException("Unable to find column for " + field);
+			return columnMap.ColumnName;
 		}
 	}
 }

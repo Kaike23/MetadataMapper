@@ -10,8 +10,11 @@ namespace Infrastructure.Mapping
 
 	public interface IDataMapper
 	{
+		IMetadataMap MetadataMap { get; }
+
 		EntityBase Find(Guid Id);
 		List<EntityBase> FindMany(IStatementSource source);
+		List<EntityBase> FindMany(string where);
 
 		Guid Insert(EntityBase entity);
 		void Update(EntityBase entity);

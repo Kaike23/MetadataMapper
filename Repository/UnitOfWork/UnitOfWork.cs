@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Repository.UnitOfWork
 {
 	using Infrastructure.Domain;
+	using Infrastructure.Mapping;
 	using Infrastructure.UnitOfWork;
+	using Repository.Mapping;
+	using Repository.Mapping.SQL;
 	using Session;
 
 	public class UnitOfWork : IUnitOfWork
@@ -12,12 +16,14 @@ namespace Repository.UnitOfWork
 		private Dictionary<IUnitOfWorkRepository, List<IEntity>> newEntities;
 		private Dictionary<IUnitOfWorkRepository, List<IEntity>> dirtyEntities;
 		private Dictionary<IUnitOfWorkRepository, List<IEntity>> removedEntities;
+		private SqlMappingRegistry mapRegistry;
 
 		public UnitOfWork()
 		{
 			newEntities = new Dictionary<IUnitOfWorkRepository, List<IEntity>>();
 			dirtyEntities = new Dictionary<IUnitOfWorkRepository, List<IEntity>>();
 			removedEntities = new Dictionary<IUnitOfWorkRepository, List<IEntity>>();
+			mapRegistry = new SqlMappingRegistry();
 		}
 
 		public void RegisterNew(IEntity entity, IUnitOfWorkRepository repository)
@@ -101,6 +107,11 @@ namespace Repository.UnitOfWork
 					session.DbInfo.Connection.Close();
 				}
 			}
+		}
+
+		public IDataMapper GetMapper(Type domainObject)
+		{
+			return mapRegistry.GetMapper(domainObject);
 		}
 	}
 }

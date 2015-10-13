@@ -13,7 +13,7 @@ namespace Repository.Mapping.SQL
 	public abstract class SQLMapper<T> : IDataMapper
 		where T : EntityBase
 	{
-		private MetadataMap _metadataMap;
+		private IMetadataMap _metadataMap;
 
 		public SQLMapper()
 		{
@@ -22,8 +22,8 @@ namespace Repository.Mapping.SQL
 
 		protected Dictionary<Guid, EntityBase> loadedMap = new Dictionary<Guid, EntityBase>();
 
-		protected abstract MetadataMap LoadMetadataMap();
-		public MetadataMap MetadataMap { get { return _metadataMap; } }
+		protected abstract IMetadataMap LoadMetadataMap();
+		public IMetadataMap MetadataMap { get { return _metadataMap; } }
 
 		#region IDataMapper
 
@@ -62,6 +62,27 @@ namespace Repository.Mapping.SQL
 				SessionFactory.GetCurrentSession().DbInfo.Connection.Open();
 				var sqlCommand = new SqlCommand(source.Query, DBConnection);
 				sqlCommand.Parameters.AddRange(source.Parameters.ToArray());
+				var reader = sqlCommand.ExecuteReader();
+				var result = LoadAll(reader);
+				reader.Close();
+				return result;
+			}
+			catch (SqlException e)
+			{
+				throw new ApplicationException(e.Message, e);
+			}
+			finally
+			{
+				SessionFactory.GetCurrentSession().DbInfo.Connection.Close();
+			}
+		}
+		public List<EntityBase> FindMany(string whereClause)
+		{
+			string sql = string.Format("SELECT {0} FROM {1} WHERE {2}", MetadataMap.ColumnList(), MetadataMap.TableName, whereClause);
+			try
+			{
+				SessionFactory.GetCurrentSession().DbInfo.Connection.Open();
+				var sqlCommand = new SqlCommand(sql, DBConnection);
 				var reader = sqlCommand.ExecuteReader();
 				var result = LoadAll(reader);
 				reader.Close();

@@ -7,18 +7,20 @@ using System.Threading.Tasks;
 
 namespace Repository.Metadata
 {
-	public class ColumnMap
+	using Infrastructure.Mapping;
+
+	public class ColumnMap : IColumnMap
 	{
 		private string _columnName;
 		private string _fieldName;
 		private PropertyInfo _field;
-		private MetadataMap _dataMap;
+		private IMetadataMap _dataMap;
 
 		public string ColumnName { get { return _columnName; } }
 		public string FieldName { get { return _fieldName; } }
 		public PropertyInfo Field { get { return _field; } }
 
-		public ColumnMap(string columnName, string fieldName, MetadataMap dataMap)
+		public ColumnMap(string columnName, string fieldName, IMetadataMap dataMap)
 		{
 			_columnName = columnName;
 			_fieldName = fieldName;
@@ -38,7 +40,7 @@ namespace Repository.Metadata
 			}
 		}
 
-		internal void SetField(object result, object columnValue)
+		public void SetField(object result, object columnValue)
 		{
 			try
 			{
@@ -50,7 +52,7 @@ namespace Repository.Metadata
 			}
 		}
 
-		internal object GetValue(object subject)
+		public object GetValue(object subject)
 		{
 			try
 			{

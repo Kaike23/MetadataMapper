@@ -1,5 +1,6 @@
 ﻿using Model.Customer;
 using Model.Order;
+using Repository.QueryObject;
 using Repository.Repositories;
 using Repository.UnitOfWork;
 using Session;
@@ -110,8 +111,24 @@ namespace TestApp
 			for (var index = 0; index < orders.Count; index++)
 				Console.WriteLine(string.Format("{0}\t{1}", index + 1, orders[index].OrderDate));
 			PressTo("CONTINUE");
-			PressTo("EXIT");
 
+			//FindAll TEST [Orders] with QueryObject
+			Console.WriteLine("FINDALL TEST [Orders] with QueryObject");
+			Console.WriteLine("Enter Customer's FirstName to display the list of Orders:");
+			var customerFirstName = Console.ReadLine();
+
+			var query = new QueryObject(typeof(Customer));
+			query.AddCriteria(Criteria.Matches("FirstName", customerFirstName));
+			var customerByQueryObject = query.Execute(uow);
+			query = new QueryObject(typeof(Order));
+			query.AddCriteria(Criteria.Matches("CustomerId", customerByQueryObject[0].Id.ToString()));
+			var ordersByQueryObject = query.Execute(uow);
+			Console.WriteLine(string.Format("{0}'s ORDERS LIST:", ((Customer)customerByQueryObject[0]).FirstName));
+			for (var index = 0; index < ordersByQueryObject.Count; index++)
+				Console.WriteLine(string.Format("{0}\t{1}", index + 1, ((Order)ordersByQueryObject[index]).OrderDate));
+			PressTo("CONTINUE");
+
+			PressTo("EXIT");
 		}
 
 		private static void PressTo(string condition)
