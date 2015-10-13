@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Domain
 {
-    public interface IAggregateRoot
-    {
-    }
+	public interface IAggregateRoot
+	{
+	}
 }

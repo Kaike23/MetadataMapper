@@ -2,9 +2,9 @@
 
 namespace Infrastructure.Session
 {
-    public interface ISessionFactory
-    {
-        ISession Open();
-        void Close();
-    }
+	public interface ISessionFactory
+	{
+		ISession Open();
+		void Close();
+	}
 }

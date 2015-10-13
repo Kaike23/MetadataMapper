@@ -1,8 +1,8 @@
 ﻿namespace Infrastructure.Session
 {
-    public enum LockType
-    {
-        Read = 0,
-        Write
-    }
+	public enum LockType
+	{
+		Read = 0,
+		Write
+	}
 }

@@ -2,13 +2,13 @@
 
 namespace Infrastructure.Identity
 {
-    using Infrastructure.Domain;
+	using Infrastructure.Domain;
 
-    public interface IIdentityMap
-    {
-        IEntity Get(Guid key);
-        void Add(Guid key, IEntity value);
-        void Remove(Guid key);
-        void Clear();
-    }
+	public interface IIdentityMap
+	{
+		IEntity Get(Guid key);
+		void Add(Guid key, IEntity value);
+		void Remove(Guid key);
+		void Clear();
+	}
 }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Model.Customer
 {
-    using Infrastructure.Domain;
+	using Infrastructure.Domain;
 
-    public interface ICustomerRepository : IRepository<Customer>
-    {
-    }
+	public interface ICustomerRepository : IRepository<Customer>
+	{
+	}
 }

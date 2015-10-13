@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Domain
 {
-    using Infrastructure.Domain;
+	using Infrastructure.Domain;
 
-    public interface IRepository<T> : IReadOnlyRepository<T>
-        where T : IAggregateRoot
-    {
-        void Add(T entity);
-        void Update(T entity);
-        void Remove(T entity);
-    }
+	public interface IRepository<T> : IReadOnlyRepository<T>
+		where T : IAggregateRoot
+	{
+		void Add(T entity);
+		void Update(T entity);
+		void Remove(T entity);
+	}
 }

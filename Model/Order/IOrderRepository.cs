@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Model.Order
 {
-    using Infrastructure.Domain;
+	using Infrastructure.Domain;
 
-    public interface IOrderRepository : IRepository<Order>
-    {
-        IEnumerable<Order> FindAllBy(Guid customerId);
-    }
+	public interface IOrderRepository : IRepository<Order>
+	{
+		IEnumerable<Order> FindAllBy(Guid customerId);
+	}
 }

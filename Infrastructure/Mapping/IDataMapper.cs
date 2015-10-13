@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Mapping
 {
-    using Infrastructure.Domain;
+	using Infrastructure.Domain;
 
-    public interface IDataMapper
-    {
-        EntityBase Find(Guid Id);
-        List<EntityBase> FindMany(IStatementSource source);
+	public interface IDataMapper
+	{
+		EntityBase Find(Guid Id);
+		List<EntityBase> FindMany(IStatementSource source);
 
-        Guid Insert(EntityBase entity);
-        void Update(EntityBase entity);
-        void Delete(EntityBase entity);
-    }
+		Guid Insert(EntityBase entity);
+		void Update(EntityBase entity);
+		void Delete(EntityBase entity);
+	}
 }

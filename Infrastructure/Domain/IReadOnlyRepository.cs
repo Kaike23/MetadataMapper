@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Domain
 {
-    public interface IReadOnlyRepository<T> where T : IAggregateRoot
-    {
-        T FindBy(Guid id);
-        IEnumerable<T> FindAll();
-    }
+	public interface IReadOnlyRepository<T> where T : IAggregateRoot
+	{
+		T FindBy(Guid id);
+		IEnumerable<T> FindAll();
+	}
 }
